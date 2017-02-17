@@ -1,0 +1,67 @@
+var possibleScenarios = [
+  // keep them in a "article + object" model.
+  "a Bathroom",
+  "a Burger King",
+  "a Trailer Park",
+  "the Taj Mahal"
+];
+var possibleWeapons = [
+  "Hammer",
+  "Rubber Chicken",
+  "Pen Pineapple Apple Pen"
+];
+
+var yourName;
+var thisEncounter;
+var thisWeapon;
+var battlesWon;
+
+function randomItemFromArray(x){
+  // we need to get an index for the arrays to give random encounters
+  return (Math.floor(Math.random() * x.length));
+}
+
+function survive(){
+  // this should give 0,1,2 from which we can derive 33% survival rate
+  var winRate =  Math.floor(Math.random() * 3)
+  if(winRate === 0){
+    return true
+  }
+  else {
+    return false
+  }
+}
+
+function zombieGame(){
+  yourName = prompt("You wake up in a haze. This is probably the beginning of a straight-to-SyFy zombie movie. First Thing's first. What's your name?");
+  thisEncounter = possibleScenarios[randomItemFromArray(possibleScenarios)];
+  thisWeapon = possibleWeapons[randomItemFromArray(possibleWeapons)];
+  battlesWon = 0;
+
+  alert("Awesome, " + yourName + ". Looks like you're in " + thisEncounter);
+  if(!confirm("Do you wanna look for weapons?")){
+    alert("You decide that survival isn\'t worth it. You lay down waiting to be eaten by the zombie horde. Good Choice.");
+    return;
+  }
+
+  alert("you look for weapons and find a " + thisWeapon + ". Neat.");
+
+  alert("Also, here comes a convenient zombie to try out your new gear. You go and attack it because that's what you do with new-found weapons");
+
+
+  while(true){
+    if(survive()=== true){
+      alert("Cool you survived.");
+      alert("Wow, another one too. Here it comes!");
+      battlesWon ++
+      //return;
+    }
+    else {
+      alert("Hmm. you died. Yeah, I guess you never really had the skills to win using a "+ thisWeapon + " anyway.");
+      alert("Final Score: "+ battlesWon);
+      return;
+    }
+  }
+}
+
+zombieGame();

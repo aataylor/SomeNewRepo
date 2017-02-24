@@ -1,0 +1,53 @@
+// I want to make a gambling game where you roll until you're out of money and are against a bot player
+// the first person to run out of money loses.
+// need the player, the opponent and some game logic maybe you can do a coin toss and lose money if you bet wrong
+"use strict";
+
+//Should this be inside or outside my game? does it matter really? I guess if I wanted to use it elsewhere then that would work
+function player(playersName, bank, betThisRound, timesWon) {
+    this.playersName = playersName;
+    this.bank = bank;
+    this.betThisRound = betThisRound;
+    this.timesWon = timesWon;
+}
+
+function coinToss(){
+    var coin = (Math.round(Math.random));
+
+    if (coin === 0) {
+        return "heads";
+    } 
+    else {
+        return "tails";
+    }
+}
+
+function gamblinGame() {
+    // why is it yelling about the objects? do they need to be in the same scope as the constructor?
+    // want to add in a computer player too. that would be cool
+    //var npc = new player("NPC", 10, "heads", 0);
+    var human = new player("default", 10, "tails", 0);
+    var winningToss; 
+
+    human.name = window.prompt("Welcome to the game of chance! I\'m going to need your name\:"); 
+    window.alert("Okay, you get $10, you're gonna bet heads or tails until you lose all your money. for each time you guess right, you get another dollar");
+
+    while (human.bank > 0 && human.bank < 100) {
+        human.betThisRound = window.prompt("what's your guess? (heads or tails)").toLowerCase();
+        winningToss = coinToss();
+        if (!(human.betThisRound === "heads" || human.betThisRound === "tails")) {
+            window.alert("YOU TRYING TO PLAY ME? GET OUT OF MY CASINO!!!");
+            console.log(human.timesWon); 
+            return;
+        } else if (winningToss === human.betThisRound){
+            human.timesWon = human.timesWon + 1;
+            window.alert("you won this time!");
+        } else {
+            window.alert("you lost this time, sorry");
+            human.bank = human.bank - 1;
+        }
+    }
+    window.alert("Looks like you reached the end. Times Won:" + human.timesWon + " Final bank:" + human.bank);
+}
+
+gamblinGame(); 
